@@ -33,7 +33,7 @@ model Pet {
   species       String
   race          String
   name          String
-  birthday      String
+  birthday      DateTime
   bio           String?
   friendly      Boolean  @default(false)
   vaccinated    Boolean  @default(false)
