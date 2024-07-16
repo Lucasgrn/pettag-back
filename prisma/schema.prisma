@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String
   email     String   @unique
   password  String
@@ -28,22 +28,36 @@ model User {
 }
 
 model Pet {
-  id            Int      @id @default(autoincrement())
-  token         String   @unique
+  id            String     @id @default(uuid())
+  token         String     @unique
   species       String
   race          String
   name          String
   birthday      DateTime
   bio           String?
-  friendly      Boolean  @default(false)
-  vaccinated    Boolean  @default(false)
-  dewormed      Boolean  @default(false)
+  friendly      Boolean    @default(false)
+  vaccinated    Boolean    @default(false)
+  dewormed      Boolean    @default(false)
   favoriteSnack String
   diaryFood     String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now())
-  owner         User     @relation(fields: [ownerId], references: [id])
-  ownerId       Int
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @default(now())
+  owner         User       @relation(fields: [ownerId], references: [id])
+  ownerId       String
+  Location      Location[]
 
   @@map("pets")
+}
+
+model Location {
+  id        String   @id @default(uuid())
+  street    String
+  number    String
+  area      String
+  zipCode   String
+  createdAt DateTime @default(now())
+  pet       Pet      @relation(fields: [petId], references: [id])
+  petId     String
+
+  @@map("locations")
 }
