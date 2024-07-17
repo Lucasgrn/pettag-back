@@ -41,3 +41,17 @@ export const login = async (req, res) => { // Login de usuário
     return res.status(500).json({ error })
   }
 }
+
+export const getSelfInfo = async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.userId
+      }
+    })
+    delete user['password']
+    return res.status(200).json(user)
+  } catch (error) {
+    return res.status(500).json({ error })
+  }
+}
