@@ -6,17 +6,9 @@ export const petRegister = async (req, res) => { // Cadastro de Pet
     if (await prisma.pet.findUnique({ where: { token } })) { // Checa se o token já foi usado em outro pet
       return res.status(422).json({ error: "Token already in use!" })
     } else {
+      req.body.ownerId = req.userId
       const pet = await prisma.pet.create({ // Adiciona um pet a partir de um novo token
-        data: {
-          token,
-          species,
-          race,
-          name,
-          birthday,
-          favoriteSnack,
-          diaryFood,
-          ownerId: req.userId
-        }
+        data: req.body
       })
       return res.status(201).json(pet)
     }
@@ -39,7 +31,8 @@ export const getPet = async (req, res) => {
   try {
     const pet = await prisma.pet.findUnique({
       where: {
-        token
+        token,
+        ownerId: req.userId
       }
     })
     if (pet) {
