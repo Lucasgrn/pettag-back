@@ -1,11 +1,14 @@
 import { Router } from "express";
 import authMid from "../middlewares/auth.js";
-import { addLocation, listLocations } from "../controllers/location.controller.js";
+import { addLocation, addUserLocation, editUserLocation, getUserLocation, listLocations } from "../controllers/location.controller.js";
 
 const locationRouter = Router()
-locationRouter.use(authMid)
+//locationRouter.use(authMid)
 
 locationRouter.get('/', listLocations)
-locationRouter.post('/:perId', addLocation)
+locationRouter.post('/pet/:petId', addLocation)
+locationRouter.post('/user', addUserLocation)
+locationRouter.get('/user', authMid, getUserLocation)
+locationRouter.patch('/user', editUserLocation)
 
 export { locationRouter }
