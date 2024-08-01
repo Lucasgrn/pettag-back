@@ -18,7 +18,7 @@ export default function authMid(req, res, next) {
 
   jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ error: 'Invalid token' })
+      return res.status(401).json({ error: 'Invalid token', details: err })
     }
     req.userId = decoded.id
     return next()
