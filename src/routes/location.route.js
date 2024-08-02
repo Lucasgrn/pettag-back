@@ -9,6 +9,6 @@ locationRouter.get('/', listLocations)
 locationRouter.post('/pet/:petId', addLocation)
 locationRouter.post('/user', addUserLocation)
 locationRouter.get('/user', authMid, getUserLocation)
-locationRouter.patch('/user', editUserLocation)
+locationRouter.patch('/user', authMid, editUserLocation)
 
 export { locationRouter }
