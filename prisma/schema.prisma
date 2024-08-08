@@ -46,6 +46,7 @@ model Pet {
   owner         User       @relation(fields: [ownerId], references: [id])
   ownerId       String
   Location      Location[]
+  Tag           Tag?
 
   @@map("pets")
 }
@@ -76,4 +77,20 @@ model userLocation {
   userId    String   @unique
 
   @@map("userLocations")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  status    Status   @default(inactive)
+  Pet       Pet?     @relation(fields: [petId], references: [id])
+  petId     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("tags")
+}
+
+enum Status {
+  active
+  inactive
 }
