@@ -1,4 +1,5 @@
 import express from "express"
+import cors from "cors"
 import { authRouter } from "./routes/auth.route.js"
 import { petRouter } from "./routes/pet.route.js";
 import { locationRouter } from "./routes/location.route.js";
@@ -8,6 +9,10 @@ import { tagRouter } from "./routes/tag.route.js";
 const app = express()
 app.use(express.json());
 
+let corsOptions = {
+  origin: "https://pettag-front.vercel.app"
+}
+app.use(cors(corsOptions))
 app.get('/', (req, res) => { res.send('Running') })
 
 app.use('/auth', authRouter)
