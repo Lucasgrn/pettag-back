@@ -10,7 +10,7 @@ const app = express()
 app.use(express.json());
 
 let corsOptions = {
-  origin: "https://pettag-front.vercel.app"
+  origin: "https://www.ipettag.com.br"
 }
 app.use(cors(corsOptions))
 app.get('/', (req, res) => { res.send('Running') })
